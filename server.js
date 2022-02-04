@@ -4,6 +4,28 @@ const path = require('path');
 //this returns a object
 const app = express();
 const routes = require('./routes');
+const FeedbackService = require('./services/FeedbackService');
+const SpeakerService = require('./services/SpeakerService');
+
+const  feedbackService = new FeedbackService('./data/feedback.json');
+const  speakersService = new SpeakerService('./data/speakers.json');
+
+app.set('trust proxy', 1)
+//trust the cookie
+//ngxine
+
+
+//This is the session manager
+//It will store encryted client data
+//on client machine
+const cookieSession = require('cookie-session')
+
+
+app.use(cookieSession({
+  name:'session',
+  keys: ['dakdsjflajsdkf', 'askjdflkasjfdlk'],
+}))
+
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'))
@@ -12,6 +34,8 @@ app.set('views', path.join(__dirname, './views'))
 //or simply our template
 
 app.use(express.static(path.join(__dirname, './static')))
+//in ejs file is example where as express finds image links
+//it knows where to look for
 //we are using middleware static
 //which looks for static files in directory
 //and then sends to server
@@ -43,6 +67,14 @@ app.get('/speakers', (request, response) =>{
 app.use('/',routes());
 app.use('/speakers',speakersRoutes());
 */
+
+//So here routes() is next() middleware
+app.use('/', routes({
+    feedbackService,
+    speakersService,
+}));
+
+
 app.listen(port, ()=> {
   console.log(`I am listening at ${port}`)
 })
