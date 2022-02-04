@@ -9,11 +9,14 @@ const router = express.Router();
 module.exports = (params) => {
 router.get('/', (request, response) =>{
 
-   console.log(`vistcount = ${request.session.visitcount}`)
+/*
   //since we already specified
   //'view engine and location'
   //express knows where to look
   response.render('pages/index', {pageTitle: 'Welcome'});
+*/
+
+  response.render('layout', {pageTitle: 'Welcome', template: 'index'})
 });
 //router has three middlewares
 //on it
