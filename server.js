@@ -40,6 +40,26 @@ app.use(express.static(path.join(__dirname, './static')))
 //which looks for static files in directory
 //and then sends to server
 
+
+//This is a local variable
+app.locals.siteName = 'ROUX Meetups';
+//It can be used by templates
+
+
+app.use(async (request, response, next) => {
+   try {
+     const names = await speakersService.getNames();
+     response.locals.speakerNames = names;
+     console.log(response.locals);
+     return next();
+   }
+   catch(err) {
+     return next(err);
+   }
+})
+
+
+
 const port = 3000;
 
 //This is moved to routes folder to organise
