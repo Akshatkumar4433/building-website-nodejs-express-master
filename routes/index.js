@@ -8,6 +8,8 @@ const router = express.Router();
 
 module.exports = (params) => {
 router.get('/', (request, response) =>{
+
+
 /*
   //since we already specified
   //'view engine and location'
