@@ -45,12 +45,17 @@ app.use(express.static(path.join(__dirname, './static')))
 app.locals.siteName = 'ROUX Meetups';
 //It can be used by templates
 
-
+//this middleware loads data in names
 app.use(async (request, response, next) => {
    try {
      const names = await speakersService.getNames();
+     //this is a aysnc statement to get names from database
      response.locals.speakerNames = names;
+     //load them in local database
+     //Now they are usable  by template
+     console.log(next())
      return next();
+     //next() is still a mystery
    }
    catch(err) {
      return next(err);
