@@ -17,9 +17,8 @@ router.get('/', async (request, response) =>{
 
 router.get('/:shortname', async (request, response) => {
   const speaker = await speakersService.getSpeaker(request.params.shortname)
-
-  console.log(speaker)
-  response.render('layout', {pageTitle: 'Speakers', template:'speakers-details',speaker})
+  const speakerArtWork = await speakersService.getArtworkForSpeaker(request.params.shortname)
+  response.render('layout', {pageTitle: 'Speakers', template:'speakers-details',speaker,speakerArtWork})
 });
 
  return router;
