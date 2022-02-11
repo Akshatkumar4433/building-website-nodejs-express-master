@@ -53,7 +53,7 @@ app.use(async (request, response, next) => {
      response.locals.speakerNames = names;
      //load them in local database
      //Now they are usable  by template
-     console.log(next())
+     
      return next();
      //next() is still a mystery
    }
