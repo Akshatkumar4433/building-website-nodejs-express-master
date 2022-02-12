@@ -40,6 +40,20 @@ app.use(express.static(path.join(__dirname, './static')))
 //which looks for static files in directory
 //and then sends to server
 
+/*
+app.get('/throw', (request,response, next) => {
+  setTimeout(() => {
+    return next(new Error('something'));
+  },500)
+
+    //throw new Error('something')
+    /*
+    this will just show error
+    on /throw link
+    while other pages will work
+     
+})
+*/
 
 //This is a local variable
 app.locals.siteName = 'ROUX Meetups';
@@ -53,7 +67,7 @@ app.use(async (request, response, next) => {
      response.locals.speakerNames = names;
      //load them in local database
      //Now they are usable  by template
-     
+
      return next();
      //next() is still a mystery
    }
