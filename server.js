@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const createError = require('http-errors')
+const bodyParser = require('body-parser');
 
 //This a function
 //this returns a object
@@ -28,6 +29,7 @@ app.use(cookieSession({
   keys: ['dakdsjflajsdkf', 'askjdflkasjfdlk'],
 }))
 
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'))

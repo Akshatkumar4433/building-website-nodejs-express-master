@@ -24,6 +24,7 @@ router.get('/', async (request, response,next) =>{
 });
 
 router.post('/', (request, response) =>{
+  console.log(request.body);
   return response.send(`feedback form posted`)
 });
 
