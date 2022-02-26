@@ -1,5 +1,7 @@
 const express = require('express');
 const path = require('path');
+const createError = require('http-errors')
+
 //This a function
 //this returns a object
 const app = express();
@@ -41,17 +43,22 @@ app.use(express.static(path.join(__dirname, './static')))
 //and then sends to server
 
 /*
+//We are trying to simulate how to respond to request if promise function fail.
+
 app.get('/throw', (request,response, next) => {
   setTimeout(() => {
+  /*
     return next(new Error('something'));
   },500)
+  */
 
-    //throw new Error('something')
+     //return next(new Error('something'))
+
     /*
     this will just show error
     on /throw link
     while other pages will work
-     
+
 })
 */
 
@@ -111,6 +118,21 @@ app.use('/', routes({
     feedbackService,
     speakersService,
 }));
+
+
+//If we are here it means no route match
+
+app.use((request, response,next) => {
+    return next(createError(404,'File not found'))
+})
+
+app.use( (err, request, response,next) => {
+  response.locals.message = err.message;
+  const status = err.status || 500;
+  response.locals.status = status;
+  response.status(status)
+  response.render('error')
+});
 
 
 app.listen(port, ()=> {

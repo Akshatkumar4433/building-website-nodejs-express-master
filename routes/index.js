@@ -8,7 +8,13 @@ const router = express.Router();
 
 module.exports = (params) => {
 router.get('/', (request, response) =>{
-
+      if (!request.session.visits) {
+        request.session.visits = 1
+      }
+      else {
+        request.session.visits += 1
+      }
+      console.log(request.session.visits)
 
 /*
   //since we already specified
