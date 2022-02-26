@@ -128,9 +128,13 @@ app.use((request, response,next) => {
 
 app.use( (err, request, response,next) => {
   response.locals.message = err.message;
+  console.error(err)
+  //Errors have status
+  //like 404 , page not found
   const status = err.status || 500;
   response.locals.status = status;
   response.status(status)
+  //we will store the status.??
   response.render('error')
 });
 

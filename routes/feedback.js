@@ -7,10 +7,16 @@ const router = express.Router();
 module.exports = (params)=> {
   //params are coming from app.use
   let feedbackService = params.feedbackService;
+
+
 router.get('/', async (request, response,next) =>{
   try {
-   const feedback = await feedbackService.getList();
-  return response.send(feedback)
+    const feedback = await feedbackService.getList()
+    return response.render('layout', {
+        pageTitle: 'Feedback',
+        template:'feedback',
+        feedback,
+    });
   }
   catch(error) {
     return next(error)
